@@ -10,7 +10,7 @@ const convertArrayToObject = (student) => {
   });
   return newStudent;
 };
-
+// Students Array
 const students = [
   ["David", ["HTM", "CSS", "JS", "React"], [98, 85, 90, 95]],
   ["John", ["HTM", "CSS", "JS", "React"], [85, 80, 85, 80]],
@@ -131,7 +131,7 @@ const users = [
     isLoggedIn: false,
   },
 ];
-
+// Product Array
 const products = [
   {
     _id: "eedfcf",
@@ -205,3 +205,36 @@ signIn({
   createdAt: "17/05/2019 10:00 AM",
   isLoggedIn: false,
 })
+
+// B
+
+const rateProduct=(rating)=>{
+    const found=products.find(item => item._id ==rating._id)
+    if(found){
+        const check =found.ratings.find(item => item.userId === rating.userId)
+        if(!check){
+            found.ratings.push({userId:rating.userId,rate:rating.rate})
+            console.log(found);
+        }else{
+            console.log("user already rated the product");
+        }
+    }else{
+        return console.log("Product Not Found");
+    }
+}
+rateProduct({ _id: "eedfcf", userId: "fg12cy", rate: 2 })
+
+
+const averageRating=(product)=>{
+    let ratingSum = 0;
+    const found=products.find(item => item._id === product._id)
+    if(found){
+       found.ratings.forEach((item)=>{
+           ratingSum=item.rate+ ratingSum;
+       })
+       return ratingSum/found.ratings.length;
+    }else{
+      return  console.log("Product not found");
+    }
+}
+console.log(averageRating(products[0]));
